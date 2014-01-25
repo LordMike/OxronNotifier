@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://www.oxron.com/" xmlns:s1="http://microsoft.com/wsdl/types/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://www.oxron.com/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://www.oxron.com/">
+      <s:import namespace="http://microsoft.com/wsdl/types/" />
+      <s:element name="GetTownList">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="serverAuth" type="s1:guid" />
+            <s:element minOccurs="1" maxOccurs="1" name="apiKey" type="s1:guid" />
+            <s:element minOccurs="0" maxOccurs="1" name="accountName" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetTownListResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetTownListResult" type="tns:OxronApiResultTown" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="OxronApiResultTown">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Validation" type="tns:OxronApiValidation" />
+          <s:element minOccurs="0" maxOccurs="1" name="Towns" type="tns:ArrayOfOxronApiTown" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="OxronApiValidation">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="IsSuccessful" type="s:boolean" />
+          <s:element minOccurs="0" maxOccurs="1" name="ErrorMessage" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfOxronApiTown">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="OxronApiTown" nillable="true" type="tns:OxronApiTown" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="OxronApiTown">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="TownId" type="s1:guid" />
+          <s:element minOccurs="0" maxOccurs="1" name="Name" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="X" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="Y" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="UnderAttack" type="s:boolean" />
+          <s:element minOccurs="1" maxOccurs="1" name="UnderAttackNaturalResource" type="s:boolean" />
+          <s:element minOccurs="1" maxOccurs="1" name="Population" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="TownStatus" type="tns:TownStatus" />
+        </s:sequence>
+      </s:complexType>
+      <s:simpleType name="TownStatus">
+        <s:restriction base="s:string">
+          <s:enumeration value="Town" />
+          <s:enumeration value="City" />
+          <s:enumeration value="Capital" />
+        </s:restriction>
+      </s:simpleType>
+      <s:element name="GetTownActionList">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="serverAuth" type="s1:guid" />
+            <s:element minOccurs="1" maxOccurs="1" name="apiKey" type="s1:guid" />
+            <s:element minOccurs="0" maxOccurs="1" name="accountName" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="townGuid" type="s1:guid" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetTownActionListResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetTownActionListResult" type="tns:OxronApiResultEvent" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="OxronApiResultEvent">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Validation" type="tns:OxronApiValidation" />
+          <s:element minOccurs="0" maxOccurs="1" name="Events" type="tns:ArrayOfOxronApiEvent" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfOxronApiEvent">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="OxronApiEvent" type="tns:OxronApiEvent" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="OxronApiEvent">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="TownActionType" type="tns:TownActionTypes" />
+          <s:element minOccurs="1" maxOccurs="1" name="Count" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="TimeLeft" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="ToolTip" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:simpleType name="TownActionTypes">
+        <s:restriction base="s:string">
+          <s:enumeration value="None" />
+          <s:enumeration value="Research" />
+          <s:enumeration value="Construct" />
+          <s:enumeration value="HostileAtt" />
+          <s:enumeration value="HostileAttNR" />
+          <s:enumeration value="Reinforcement" />
+          <s:enumeration value="ReinforcementNR" />
+          <s:enumeration value="OwnTroopsHome" />
+          <s:enumeration value="SendReinforcement" />
+          <s:enumeration value="AttOnEnemies" />
+          <s:enumeration value="Explore" />
+          <s:enumeration value="Spying" />
+          <s:enumeration value="Trade" />
+          <s:enumeration value="Settlement" />
+        </s:restriction>
+      </s:simpleType>
+    </s:schema>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://microsoft.com/wsdl/types/">
+      <s:simpleType name="guid">
+        <s:restriction base="s:string">
+          <s:pattern value="[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}" />
+        </s:restriction>
+      </s:simpleType>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="GetTownListSoapIn">
+    <wsdl:part name="parameters" element="tns:GetTownList" />
+  </wsdl:message>
+  <wsdl:message name="GetTownListSoapOut">
+    <wsdl:part name="parameters" element="tns:GetTownListResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetTownActionListSoapIn">
+    <wsdl:part name="parameters" element="tns:GetTownActionList" />
+  </wsdl:message>
+  <wsdl:message name="GetTownActionListSoapOut">
+    <wsdl:part name="parameters" element="tns:GetTownActionListResponse" />
+  </wsdl:message>
+  <wsdl:portType name="OxronApiSoap">
+    <wsdl:operation name="GetTownList">
+      <wsdl:input message="tns:GetTownListSoapIn" />
+      <wsdl:output message="tns:GetTownListSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetTownActionList">
+      <wsdl:input message="tns:GetTownActionListSoapIn" />
+      <wsdl:output message="tns:GetTownActionListSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="OxronApiSoap" type="tns:OxronApiSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetTownList">
+      <soap:operation soapAction="http://www.oxron.com/GetTownList" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetTownActionList">
+      <soap:operation soapAction="http://www.oxron.com/GetTownActionList" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="OxronApiSoap12" type="tns:OxronApiSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetTownList">
+      <soap12:operation soapAction="http://www.oxron.com/GetTownList" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetTownActionList">
+      <soap12:operation soapAction="http://www.oxron.com/GetTownActionList" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="OxronApi">
+    <wsdl:port name="OxronApiSoap" binding="tns:OxronApiSoap">
+      <soap:address location="http://s4.oxron.com/OxronApi.asmx" />
+    </wsdl:port>
+    <wsdl:port name="OxronApiSoap12" binding="tns:OxronApiSoap12">
+      <soap12:address location="http://s4.oxron.com/OxronApi.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
