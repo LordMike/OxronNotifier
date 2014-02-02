@@ -65,6 +65,9 @@
   <PropertyGroup>
     <SignAssembly>false</SignAssembly>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>favicon.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Compile Include="ApiProxy.cs" />
     <Compile Include="ConfigureForm.cs">
@@ -98,6 +101,7 @@
     <Compile Include="Utility\SoundPlayer.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="favicon.ico" />
     <Content Include="Resources\favicon.ico" />
     <Content Include="Resources\notification.wav" />
     <None Include="OxronNotifier.pfx" />
